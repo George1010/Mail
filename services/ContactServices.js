@@ -1,4 +1,5 @@
 const {Group} = require('../models/Group.js')
+const {Search} = require('../models/Search.js')
 const {UserDetails} = require('../models/UserDetails.js')
 const { v4 } = require('uuid');
 
@@ -21,6 +22,17 @@ module.exports.addContact= async (data, id)=>{
 module.exports.getContacts= async (id)=>{
     var user= await findOneById(id)
     var data=  await findAllContacts(user["contacts"])
+    console.log(data)
+    if(data == null || data.length==0) {
+        return {"success":false, "error":"no contacts found", "code":400}
+    } else {
+        return {"success":true, "code":200,"data":data}
+    }
+}
+
+
+module.exports.searchContact= async (searchQuery)=>{
+    var data=  await findContacts(searchQuery.toUpperCase())
     console.log(data)
     if(data == null || data.length==0) {
         return {"success":false, "error":"no contacts found", "code":400}
@@ -65,5 +77,12 @@ var createNewGroupAndUpdateContact = async (groupData, user, newContactObj) => {
         response = {"success" : false, "code" : 400, "error": "error"}
     }
     return response
+
+}
+
+var findContacts = async (query) => {
+
+        var data = await Search.find({"names": query})
+        return data
 
 }

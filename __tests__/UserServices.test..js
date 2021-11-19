@@ -5,6 +5,7 @@ describe("user services tests", () => {
  test('testing tokenizer', () => {
 
    var result = userServices.nameAsSearchTokens("test", "")
-   expect(result).toBe(["t","te","tes","test"]);
+   console.log(result)
+   expect(result).toEqual(["t","te","tes","test"]);
  });
 })
