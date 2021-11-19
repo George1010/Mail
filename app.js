@@ -7,14 +7,12 @@ var bodyParser = require('body-parser')
 app.use(bodyParser.json())
 const port = 3000
 const home = require('./routes/home.js');
-const send = require('./routes/sendMail.js');
-const login = require('./routes/login.js');
-const register = require('./routes/register.js');
+const user = require('./routes/user.js');
+const contact = require('./routes/contact.js')
 
 app.use('/', home);
-app.use('/send', send);
-app.use('/user/login', login);
-app.use('/user/register', register);
+app.use('/user', user)
+app.use('/v1/contact', contact)
 
 
 
