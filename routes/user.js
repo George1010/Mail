@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var user = require('../services/UserServices.js')
 
-router.post('/', function (req, res) {
+router.post('/login', function (req, res) {
     var request = req.body;
     (async () => {
       var result =  await user.login(request)
@@ -13,5 +13,13 @@ router.post('/', function (req, res) {
 })
 
 
+router.post('/register', function (req, res) {
+    var request = req.body;
+    (async () => {
+      var result =  await user.register(request)
+      console.log(result)
+      res.send(result);
+    })()
+})
 
 module.exports = router;
